@@ -31,9 +31,22 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="Makefile" />
+		<Unit filename="cercle.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="cercle.h" />
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="produit.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="produit.h" />
+		<Unit filename="robot.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="robot.h" />
 		<Extensions>
 			<code_completion />
 			<debugger />

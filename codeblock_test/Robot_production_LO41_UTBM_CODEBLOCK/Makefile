@@ -19,7 +19,7 @@ LIBRARY_PATH= -L/usr/lib
 LDFLAGS= $(LIBRARY_PATH) -o
 
 # Les librairies avec lesquelle on va effectueller l'edition de liens
-LIBS=
+LIBS= -lpthread
 
 # Les fichiers sources de l'application
 FILES= main.c cercle.c robot.c produit.c
