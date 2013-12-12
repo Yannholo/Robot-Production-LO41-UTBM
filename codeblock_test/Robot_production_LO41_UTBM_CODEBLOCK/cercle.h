@@ -5,14 +5,13 @@
 #include <pthread.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
 
-#define NB_SECTIONS 16 // >= 1
-#define START 1
-#define STOP 0
 
 
 struct cercle_run_args {
     int nb_robot;
+    int nb_sections;
 } cercle_run_args;
 
 /* ### VARIABLES DE SYNCHONISATION ### */
@@ -27,8 +26,12 @@ pthread_mutex_t mutex_cercle;
 pthread_cond_t cond_fin_robot;
 pthread_cond_t cond_start_robot;
 
+/* initialise l'environement du thread */
+void cercle_init(int nb_section);
 /* ### le thread du cercle ### */
 void * cercle_run(void * arg);
+/* detruit l'environement du thread */
+void cercle_destroy();
 
 /* retourne le produit de la section */
 Produit see_section(int no_section);
@@ -36,6 +39,12 @@ Produit see_section(int no_section);
 Produit get_produit(int no_section);
 /* met le produit dans la section et revois 0 si possible, renvois 1 sinon */
 int set_produit(int no_section, Produit produit);
+/* lock le mutex de la section indiquée */
+void mutex_section_lock(int no_section);
+/* unlock le mutex de la section indiquée */
+void mutex_section_unlock(int no_section);
+/* nombre de produits sur le cercle (update 1 fois par cycle) */
+int get_nb_produit_cercle();
 
 
 #endif // CERCLE_H_INCLUDED

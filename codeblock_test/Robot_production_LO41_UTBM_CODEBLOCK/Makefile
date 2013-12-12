@@ -22,7 +22,7 @@ LDFLAGS= $(LIBRARY_PATH) -o
 LIBS= -lpthread
 
 # Les fichiers sources de l'application
-FILES= main.c cercle.c robot.c produit.c
+FILES= main.c cercle.c robot.c produit.c tapis.c operation.c transformation.c
 
 #-----------
 # LES CIBLES
@@ -41,7 +41,10 @@ clean:
 cercle.o:cercle.c
 robot.o:robot.c
 produit.o: produit.c
-main.o:main.c cercle.h robot.h produit.h
+tapis.o:tapis.c
+operation.o:operation.c
+transformation.o: transformation.c
+main.o:main.c cercle.h robot.h produit.h tapis.h operation.h transformation.h
 #---------------------------------
 # REGLES DE COMPILATION IMPLICITES
 #---------------------------------
