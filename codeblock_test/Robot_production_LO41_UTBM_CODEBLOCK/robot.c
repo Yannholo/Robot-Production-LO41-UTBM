@@ -156,6 +156,9 @@ void * robot_run(void * args) {
 
     }
 
+    // on reveille le cercle s'il est bloqué
+    pthread_cond_signal(&cond_fin_robot);
+
     free(the_args->operations);
     free(the_args);
 

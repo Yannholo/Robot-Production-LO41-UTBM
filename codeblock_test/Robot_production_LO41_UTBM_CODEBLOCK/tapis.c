@@ -49,6 +49,7 @@ void * tapis_run(void * args) {
             if(produits_fini == 0){
                 // on arrete toutes les machines
                 stop_machines();
+
             }
 
         }
@@ -84,6 +85,9 @@ void * tapis_run(void * args) {
         printf("Tapis entree \t: C1 : %d\t, C2 : %d\t, C3 : %d\t, C4 : %d\t\n", the_args->nb_c1, the_args->nb_c2, the_args->nb_c3, the_args->nb_c4);
         mutex_section_unlock(the_args->no_section);
     }
+
+    // on reveille le cercle s'il est bloqué
+    pthread_cond_signal(&cond_fin_robot);
 
     free(the_args);
     return (void *) 0;
