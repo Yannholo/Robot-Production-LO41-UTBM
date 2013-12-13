@@ -18,7 +18,7 @@ void * robot_run(void * args) {
     struct operation_t operation;
     int getout = 0;
 
-    for(;;) {
+    while(get_stop_machine() != 1) {
         pthread_mutex_lock(&mutex_cercle);
         // on dit au cercle que l'on l'attend
         nb_robot_fini++;

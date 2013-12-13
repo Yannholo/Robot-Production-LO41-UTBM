@@ -7,12 +7,14 @@ Produit * les_sections;
 pthread_mutex_t * mutex_sections;
 int nb_sections;
 int nb_produit;
+int stop_machine;
 
 /* initialise l'environement du thread */
 void cercle_init(int nb_section) {
     int i;
     nb_robot_fini = 0;
     nb_produit = 0;
+    stop_machine = 0;
     nb_sections = nb_section;
     pthread_mutex_init(&mutex_cercle, NULL);
     pthread_cond_init(&cond_fin_robot, NULL);
@@ -79,7 +81,7 @@ void clearscreen() {
 void * cercle_run(void * args) {
     struct cercle_run_args * the_args = args;
 
-    for(;;){
+    while(get_stop_machine() != 1) {
         //sleep(1); // slowing simulation
         pthread_mutex_lock(&mutex_cercle);
         // On attend que tout les robots aient fini
@@ -142,6 +144,14 @@ int set_produit(int no_section, Produit produit) {
         result = 0;
     }
     return result;
+}
+
+void stop_machines() {
+    stop_machine = 1;
+}
+
+int get_stop_machine() {
+    return stop_machine;
 }
 
 int get_nb_produit_cercle() {

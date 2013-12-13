@@ -45,6 +45,10 @@ void mutex_section_lock(int no_section);
 void mutex_section_unlock(int no_section);
 /* nombre de produits sur le cercle (update 1 fois par cycle) */
 int get_nb_produit_cercle();
+/* arrete les machines */
+void stop_machines();
+/* si == 1 on arrete les machines */
+int get_stop_machine();
 
 
 #endif // CERCLE_H_INCLUDED

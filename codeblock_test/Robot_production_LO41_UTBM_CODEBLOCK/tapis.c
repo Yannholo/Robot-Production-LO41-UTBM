@@ -5,13 +5,13 @@ void * tapis_run(void * args) {
     Produit produit;
     /* les ressources posee - les produits fini recuperé */
     int ressources_posee = 0;
-    int produits_fini = 0;
+    int produits_fini = (the_args->nb_c1 / C1_PER_P1) + (the_args->nb_c2 / C2_PER_P2) + (the_args->nb_c3 / C3_PER_P3) + (the_args->nb_c4 / C4_PER_P4);
     int produits_fini_p1 = 0;
     int produits_fini_p2 = 0;
     int produits_fini_p3 = 0;
     int produits_fini_p4 = 0;
 
-    for(;;) {
+    while(get_stop_machine() != 1) {
         pthread_mutex_lock(&mutex_cercle);
         // on dit au cercle que l'on l'attend
         nb_robot_fini++;
@@ -28,7 +28,6 @@ void * tapis_run(void * args) {
             /* Tapis de sortie */
             produit = get_produit(the_args->no_section);
             printf("Tapis \t: ### Produit %s sort ###\n", get_nom_produit(produit));
-            produits_fini++;
             switch (produit) {
             case P1:
                 produits_fini_p1++;
@@ -45,9 +44,15 @@ void * tapis_run(void * args) {
             default:
                 break;
             }
+            produits_fini--;
+            // s'il l'on attend plus de produit fini (la production est terminée)
+            if(produits_fini == 0){
+                // on arrete toutes les machines
+                stop_machines();
+            }
 
         }
-        printf("Tapis sortie \t: P1 : %d\t, P2 : %d\t, P3 : %d\t, P4 : %d\t\n", produits_fini_p1, produits_fini_p2, produits_fini_p3, produits_fini_p4);
+        printf("Tapis sortie \t: P1 : %d\t, P2 : %d\t, P3 : %d\t, P4 : %d\t restant : %d\n", produits_fini_p1, produits_fini_p2, produits_fini_p3, produits_fini_p4, produits_fini);
 
         produit = see_section(the_args->no_section);
         /* si la section est vide */

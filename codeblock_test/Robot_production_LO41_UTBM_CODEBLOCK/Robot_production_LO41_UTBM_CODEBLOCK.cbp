@@ -42,6 +42,10 @@
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="operation.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="operation.h" />
 		<Unit filename="produit.c">
 			<Option compilerVar="CC" />
 		</Unit>
@@ -50,6 +54,14 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="robot.h" />
+		<Unit filename="tapis.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="tapis.h" />
+		<Unit filename="transformation.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="transformation.h" />
 		<Extensions>
 			<code_completion />
 			<debugger />

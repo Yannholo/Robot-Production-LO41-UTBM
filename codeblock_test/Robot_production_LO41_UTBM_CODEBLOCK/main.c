@@ -102,13 +102,18 @@ int main()
 
     /* ON ATTEND LA FIN DES THREADS */
     pthread_join(cercle, NULL);
+    printf("Cercle termine\n");
     pthread_join(tapis, NULL);
+    printf("Tapis termine\n");
     for(i = 0; i < NB_ROBOT; i++) {
         pthread_join(robots[i], NULL);
     }
+    printf("Robots termine\n");
     /* ON FAIT LE MENAGE */
     cercle_destroy();
     operation_destroy();
+    free(robots);
+    printf("Ménage fait\n");
 
     return 0;
 }
