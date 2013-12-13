@@ -100,6 +100,8 @@ void * cercle_run(void * args) {
         nb_robot_fini = 0;
         pthread_mutex_unlock(&mutex_cercle);
     }
+    // on debloque les robots qui attendaient déja
+    pthread_cond_broadcast(&cond_start_robot);
 
     free(the_args);
 

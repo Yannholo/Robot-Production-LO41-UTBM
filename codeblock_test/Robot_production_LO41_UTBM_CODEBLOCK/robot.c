@@ -151,7 +151,7 @@ void * robot_run(void * args) {
         }
         printf("Section %d\t: %s\t, c1 : %d\t, c2 : %d\t, c3 : %d\t, c4 : %d\t, prod : %s\t, countdown : %d\t\n", the_args->no_section, get_nom_produit(see_section(the_args->no_section)),
                 res_c1, res_c2, res_c3, res_c4, get_nom_produit(res_produit), countdown);
-        sleep(1); // DEBUG slowing simulation
+        //sleep(1); // DEBUG slowing simulation
         mutex_section_unlock(the_args->no_section);
 
     }
