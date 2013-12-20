@@ -3,6 +3,7 @@
 void * tapis_run(void * args) {
     struct tapis_run_args * the_args = args;
     Produit produit;
+    int tmp;
     /* les ressources posee - les produits fini recuperé */
     int ressources_posee = 0;
     int produits_fini = (the_args->nb_c1 / C1_PER_P1) + (the_args->nb_c2 / C2_PER_P2) + (the_args->nb_c3 / C3_PER_P3) + (the_args->nb_c4 / C4_PER_P4);
@@ -10,6 +11,8 @@ void * tapis_run(void * args) {
     int produits_fini_p2 = 0;
     int produits_fini_p3 = 0;
     int produits_fini_p4 = 0;
+
+    srand(time(NULL));
 
     while(get_stop_machine() != 1) {
         pthread_mutex_lock(&mutex_cercle);
@@ -61,18 +64,23 @@ void * tapis_run(void * args) {
             /* Tapis d'entree */
             // s'il reste suffisament de place sur la section
             if(get_nb_produit_cercle() < (the_args->nb_sections - the_args->nb_robots)  ) {
-                if(the_args->nb_c1 > 0) {
-                    the_args->nb_c1--;
-                    produit = C1;
-                } else if(the_args->nb_c2 > 0) {
-                    the_args->nb_c2--;
-                    produit = C2;
-                } else if(the_args->nb_c3 > 0) {
-                    the_args->nb_c3--;
-                    produit = C3;
-                } else if(the_args->nb_c4 > 0) {
-                    the_args->nb_c4--;
-                    produit = C4;
+                if(the_args->nb_c1 > 0 || the_args->nb_c2 > 0 || the_args->nb_c3 > 0 || the_args->nb_c4 > 0) {
+
+                    tmp = rand() % 4;
+                    if(the_args->nb_c1 > 0 && tmp == 0) {
+                        the_args->nb_c1--;
+                        produit = C1;
+                    } else if(the_args->nb_c2 > 0 && tmp <= 1) {
+                        the_args->nb_c2--;
+                        produit = C2;
+                    } else if(the_args->nb_c3 > 0 && tmp <= 2) {
+                        the_args->nb_c3--;
+                        produit = C3;
+                    } else if(the_args->nb_c4 > 0 && tmp <= 3) {
+                        the_args->nb_c4--;
+                        produit = C4;
+                    }
+
                 }
                 if(produit != VIDE) {
                     printf("Tapis \t: Ajout d'un produit %s\n", get_nom_produit(produit));
