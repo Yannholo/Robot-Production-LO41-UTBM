@@ -48,13 +48,15 @@ void * tapis_run(void * args) {
                 break;
             }
             produits_fini--;
-            // s'il l'on attend plus de produit fini (la production est terminée)
-            if(produits_fini == 0){
-                // on arrete toutes les machines
-                stop_machines();
+            
+            
 
-            }
+        }
 
+	// s'il l'on attend plus de produit fini (la production est terminée)
+	if(produits_fini == 0){
+            // on arrete toutes les machines
+            stop_machines();
         }
         printf("Tapis sortie \t: P1 : %d\t, P2 : %d\t, P3 : %d\t, P4 : %d\t restant : %d\n", produits_fini_p1, produits_fini_p2, produits_fini_p3, produits_fini_p4, produits_fini);
 

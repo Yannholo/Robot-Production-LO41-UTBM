@@ -86,7 +86,7 @@ void * cercle_run(void * args) {
         pthread_mutex_lock(&mutex_cercle);
         // On attend que tout les robots aient fini
         printf("On attend que les robots soient prets\n");
-        while(nb_robot_fini < the_args->nb_robot) {
+        while(nb_robot_fini < the_args->nb_robot && get_stop_machine() != 1) {
             pthread_cond_wait(&cond_fin_robot, &mutex_cercle);
             printf("arrivee d'un robot (%d/%d)\n", nb_robot_fini, the_args->nb_robot);
         }
